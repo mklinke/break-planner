@@ -13,24 +13,32 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.mklinke.breakplanner.model;
+package com.mklinke.breakplanner.p2p;
 
 import java.io.IOException;
+
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceInfo;
 
 /**
  * @author Martin Klinke
  * 
  */
-public interface BreakRepository {
+public class P2PGateway {
+  private JmDNS jmDNS;
 
-  /**
-   * 
-   */
-  void connect() throws IOException;
+  public P2PGateway() throws IOException {
+    jmDNS = JmDNS.create();
+  }
 
-  /**
-   * @return
-   */
-  Break[] getBreaks();
+  public void registerService() throws IOException {
+    ServiceInfo serviceInfo = ServiceInfo.create("_http._tcp.local.",
+        "BreakPlanner", 4001, "The BreakPlanner P2P service");
+    jmDNS.registerService(serviceInfo);
+  }
 
+  public ServiceInfo[] listServices()
+  {
+    return jmDNS.list("_http._tcp.local.");
+  }
 }

@@ -24,7 +24,9 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.SwingWorker;
 
+import com.mklinke.breakplanner.model.Break;
 import com.mklinke.breakplanner.view.ExitListener;
 import com.mklinke.breakplanner.view.MainView;
 
@@ -88,5 +90,20 @@ public class MainWindow extends JFrame implements
   public void setStatus(String message) {
 
     getStatusLabel().setText(message);
+  }
+
+  /* (non-Javadoc)
+   * @see com.mklinke.breakplanner.view.MainView#setBreaks(com.mklinke.breakplanner.model.Break[])
+   */
+  public void setBreaks(Break[] breaks) {
+    // TODO Auto-generated method stub
+    
+  }
+
+  /* (non-Javadoc)
+   * @see com.mklinke.breakplanner.view.MainView#run(java.lang.Runnable, java.lang.Runnable)
+   */
+  public void run(Runnable async, Runnable sync) {
+    //TODO use SwingWorker?
   }
 }

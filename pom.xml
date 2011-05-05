@@ -54,5 +54,12 @@
     	<type>jar</type>
     	<scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>javax.jmdns</groupId>
+    	<artifactId>jmdns</artifactId>
+    	<version>3.4.0</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
   </dependencies>
 </project>

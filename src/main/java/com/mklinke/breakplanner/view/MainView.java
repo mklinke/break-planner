@@ -15,6 +15,8 @@
  */
 package com.mklinke.breakplanner.view;
 
+import com.mklinke.breakplanner.model.Break;
+
 /**
  * The main view interface.
  * 
@@ -34,7 +36,8 @@ public interface MainView {
   void show();
 
   /**
-   * @param exitListener the listener to notify about application exit
+   * @param exitListener
+   *          the listener to notify about application exit
    */
   void registerExitListener(ExitListener exitListener);
 
@@ -42,5 +45,19 @@ public interface MainView {
    * @return
    */
   boolean confirmExit();
+
+  /**
+   * @param breaks
+   */
+  void setBreaks(Break[] breaks);
+
+  /**
+   * @param async
+   *          the runnable to run asynchronously in the background
+   * @param sync
+   *          the runnable to run synchronously in the UI thread after
+   *          successful execution of async
+   */
+  void run(Runnable async, Runnable sync);
 
 }

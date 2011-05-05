@@ -15,7 +15,11 @@
  */
 package com.mklinke.breakplanner;
 
+import java.io.IOException;
+
 import com.mklinke.breakplanner.controller.MainController;
+import com.mklinke.breakplanner.model.BreakRepository;
+import com.mklinke.breakplanner.model.BreakRepositoryP2P;
 import com.mklinke.breakplanner.ui.MainWindow;
 import com.mklinke.breakplanner.view.MainView;
 
@@ -26,8 +30,15 @@ import com.mklinke.breakplanner.view.MainView;
  */
 public class Main {
   public static void main(String[] args) {
-    MainView view = new MainWindow(); 
-    MainController controller = new MainController(view);
-    controller.run();
+    MainView view = new MainWindow();
+    BreakRepository model;
+    try {
+      model = new BreakRepositoryP2P();
+      MainController controller = new MainController(view, model);
+      controller.run();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 }

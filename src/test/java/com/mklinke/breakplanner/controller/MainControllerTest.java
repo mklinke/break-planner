@@ -17,6 +17,7 @@ package com.mklinke.breakplanner.controller;
 
 import org.junit.Test;
 
+import com.mklinke.breakplanner.model.BreakRepository;
 import com.mklinke.breakplanner.view.MainView;
 
 import static org.mockito.Mockito.*;
@@ -27,15 +28,23 @@ import static org.mockito.Mockito.*;
  */
 public class MainControllerTest {
 
-  @Test(expected=IllegalArgumentException.class)
+  @Test(expected = IllegalArgumentException.class)
   public void NewMainControllerViewMustNotBeNull() {
-    new MainController(null);
+    BreakRepository model = mock(BreakRepository.class);
+    new MainController(null, model);
   }
-  
+
+  @Test(expected = IllegalArgumentException.class)
+  public void NewMainControllerModelMustNotBeNull() {
+    MainView view = mock(MainView.class);
+    new MainController(view, null);
+  }
+
   @Test
   public void RunShouldRegisterExitListener() {
     MainView view = mock(MainView.class);
-    MainController controller = new MainController(view);
+    BreakRepository model = mock(BreakRepository.class);
+    MainController controller = new MainController(view, model);
     controller.run();
     verify(view).registerExitListener(controller);
   }
