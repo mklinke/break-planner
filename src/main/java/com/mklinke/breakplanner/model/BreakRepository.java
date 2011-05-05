@@ -13,21 +13,12 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.mklinke.breakplanner;
-
-import com.mklinke.breakplanner.controller.MainController;
-import com.mklinke.breakplanner.ui.MainWindow;
-import com.mklinke.breakplanner.view.MainView;
+package com.mklinke.breakplanner.model;
 
 /**
- * The main class for starting the application.
- * 
  * @author Martin Klinke
+ *
  */
-public class Main {
-  public static void main(String[] args) {
-    MainView view = new MainWindow(); 
-    MainController controller = new MainController(view);
-    controller.run();
-  }
+public interface BreakRepository {
+  
 }
