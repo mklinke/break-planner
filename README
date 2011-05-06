@@ -1,0 +1,10 @@
+A peer-to-peer planner for your next lunch/coffee break.
+
+The application is based on the following technologies:
+ - Java Swing for the user interface
+ - JmDNS for peer-to-peer networking
+ - JodaTime for date and time calculation
+ 
+Testing is done with JUnit and Mockito.
+
+The project can be built with Maven.
