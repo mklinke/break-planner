@@ -42,22 +42,31 @@ public interface MainView {
   void registerExitListener(ExitListener exitListener);
 
   /**
+   * @param newBreakListener
+   *          the listener to notify about break creation
+   */
+  void registerNewBreakListener(NewBreakListener newBreakListener);
+
+  void registerRemoveBreakListener(RemoveBreakListener removeBreakListener);
+
+  /**
    * @return
    */
   boolean confirmExit();
 
   /**
-   * @param breaks
+   * @param aBreak
    */
-  void setBreaks(Break[] breaks);
+  void addBreak(Break aBreak);
 
   /**
-   * @param async
-   *          the runnable to run asynchronously in the background
-   * @param sync
-   *          the runnable to run synchronously in the UI thread after
-   *          successful execution of async
+   * @param string
    */
-  void run(Runnable async, Runnable sync);
+  void showError(String string);
+
+  /**
+   * @param removedBreak
+   */
+  void removeBreak(Break removedBreak);
 
 }

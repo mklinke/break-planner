@@ -13,19 +13,22 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-package com.mklinke.breakplanner.view;
+package com.mklinke.breakplanner.model;
 
 /**
- * Listener interface for being notified about the application exit and vetoing.
- * 
  * @author Martin Klinke
+ *
  */
-public interface ExitListener {
+public interface RemoteBreakListener {
 
   /**
-   * @return <code>true</code> if the application should exit, <code>false</code>
-   *         otherwise
+   * @param newBreak
    */
-  boolean confirmExit();
+  void remoteBreakAdded(Break newBreak);
+
+  /**
+   * @param removedBreak
+   */
+  void remoteBreakRemoved(Break removedBreak);
 
 }

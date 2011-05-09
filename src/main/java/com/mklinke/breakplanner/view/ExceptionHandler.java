@@ -16,16 +16,15 @@
 package com.mklinke.breakplanner.view;
 
 /**
- * Listener interface for being notified about the application exit and vetoing.
- * 
  * @author Martin Klinke
+ *
  */
-public interface ExitListener {
+public interface ExceptionHandler {
 
   /**
-   * @return <code>true</code> if the application should exit, <code>false</code>
-   *         otherwise
+   * @param string
+   * @param e
    */
-  boolean confirmExit();
+  void handleException(String string, Exception e);
 
 }

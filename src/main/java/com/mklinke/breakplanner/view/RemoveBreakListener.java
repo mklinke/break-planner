@@ -15,17 +15,17 @@
  */
 package com.mklinke.breakplanner.view;
 
+import com.mklinke.breakplanner.model.Break;
+
 /**
- * Listener interface for being notified about the application exit and vetoing.
- * 
  * @author Martin Klinke
+ *
  */
-public interface ExitListener {
+public interface RemoveBreakListener {
 
   /**
-   * @return <code>true</code> if the application should exit, <code>false</code>
-   *         otherwise
+   * @param aBreak
    */
-  boolean confirmExit();
+  void removeBreak(Break aBreak);
 
 }

@@ -16,29 +16,63 @@
 package com.mklinke.breakplanner.p2p;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
+import javax.jmdns.ServiceListener;
 
 /**
  * @author Martin Klinke
  * 
  */
 public class P2PGateway {
+
+  private static final String SERVICE_TYPE = "_http._tcp.local.";
+  private static final int SERVICE_PORT = 4001;
+
   private JmDNS jmDNS;
 
   public P2PGateway() throws IOException {
     jmDNS = JmDNS.create();
   }
 
-  public void registerService() throws IOException {
-    ServiceInfo serviceInfo = ServiceInfo.create("_http._tcp.local.",
-        "BreakPlanner", 4001, "The BreakPlanner P2P service");
-    jmDNS.registerService(serviceInfo);
+  public void addServiceListener(ServiceListener serviceListener) {
+    jmDNS.addServiceListener(SERVICE_TYPE, serviceListener);
   }
 
-  public ServiceInfo[] listServices()
-  {
-    return jmDNS.list("_http._tcp.local.");
+  public ServiceInfo registerService(String name, Map<String, ?> props)
+      throws IOException {
+    ServiceInfo serviceInfo = ServiceInfo.create(SERVICE_TYPE, name,
+        SERVICE_PORT, 0, 0, props);
+    jmDNS.registerService(serviceInfo);
+    return serviceInfo;
+  }
+
+  public List<ServiceInfo> getServices() {
+    return Arrays.asList(jmDNS.list(SERVICE_TYPE));
+  }
+  
+  public ServiceInfo resolve(ServiceInfo serviceInfo){
+    return jmDNS.getServiceInfo(SERVICE_TYPE,
+        serviceInfo.getName());
+  }
+
+  /**
+   * @param serviceInfo
+   */
+  public void unregisterService(ServiceInfo serviceInfo) {
+    jmDNS.unregisterService(serviceInfo);
+  }
+
+  /**
+   * @throws IOException 
+   * 
+   */
+  public void disconnect() throws IOException {
+    jmDNS.close();
   }
 }

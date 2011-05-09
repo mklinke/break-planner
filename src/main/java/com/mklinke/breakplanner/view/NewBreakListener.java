@@ -15,17 +15,20 @@
  */
 package com.mklinke.breakplanner.view;
 
+import java.util.Date;
+
 /**
- * Listener interface for being notified about the application exit and vetoing.
+ * Listener interface for being notified about break creation.
  * 
  * @author Martin Klinke
  */
-public interface ExitListener {
+public interface NewBreakListener {
 
   /**
-   * @return <code>true</code> if the application should exit, <code>false</code>
-   *         otherwise
+   * 
+   * @param description the description for the break
+   * @param time the time for the break
    */
-  boolean confirmExit();
-
+  void newBreak(String description, Date time);
+  
 }

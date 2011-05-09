@@ -15,9 +15,14 @@
  */
 package com.mklinke.breakplanner.p2p;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.jmdns.ServiceInfo;
 
@@ -28,21 +33,48 @@ import org.junit.Test;
  * 
  */
 public class P2PGatewayTest {
+
   @Test
-  public void registerAndList() throws IOException {
+  public void registerAndGetService() throws IOException {
     P2PGateway server = new P2PGateway();
-    server.registerService();
+    String name = "BreakPlanner-" + UUID.randomUUID().toString();
+    Map<String, String> properties = new HashMap<String, String>();
+    server.registerService(name, properties);
     P2PGateway client = new P2PGateway();
-    ServiceInfo[] serviceInfos = client.listServices();
-    assertTrue(serviceInfos.length > 0);
-    boolean serviceAvailable = false;
-    for (int i = 0; i < serviceInfos.length; i++) {
-      ServiceInfo serviceInfo = serviceInfos[i];
-      if ("BreakPlanner".equals(serviceInfo.getName())) {
-        serviceAvailable = true;
+    List<ServiceInfo> serviceInfos = client.getServices();
+    assertNotNull(serviceInfos);
+    assertTrue(serviceInfos.size() > 0);
+    boolean serviceDetected = false;
+    for (ServiceInfo serviceInfo : serviceInfos) {
+      if (name.equals(serviceInfo.getName())) {
+        serviceDetected = true;
         break;
       }
     }
-    assertTrue(serviceAvailable);
+    assertTrue(serviceDetected);
+  }
+
+  @Test
+  public void getServiceDescription() throws IOException {
+    P2PGateway server = new P2PGateway();
+    String name = "BreakPlanner-" + UUID.randomUUID().toString();
+    String description = "Coffee Break";
+    Map<String, String> properties = new HashMap<String, String>();
+    String descriptionKey = "description";
+    properties.put(descriptionKey, description);
+    server.registerService(name, properties);
+    P2PGateway client = new P2PGateway();
+    List<ServiceInfo> serviceInfos = client.getServices();
+    boolean descriptionFound = false;
+    for (ServiceInfo serviceInfo : serviceInfos) {
+      if (name.equals(serviceInfo.getName())) {
+        String propertyString = serviceInfo.getPropertyString(descriptionKey);
+        if (description.equals(propertyString)) {
+          descriptionFound = true;
+          break;
+        }
+      }
+    }
+    assertTrue(descriptionFound);
   }
 }

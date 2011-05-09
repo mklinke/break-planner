@@ -16,6 +16,7 @@
 package com.mklinke.breakplanner.model;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author Martin Klinke
@@ -24,13 +25,36 @@ import java.io.IOException;
 public interface BreakRepository {
 
   /**
+   * Adds a new break.
    * 
+   * @param newBreak
+   *          the new break to add.
+   * @throws IOException
+   *           if an error occurs while adding the break
    */
-  void connect() throws IOException;
+  void addBreak(Break newBreak) throws IOException;
+  void removeBreak(Break newBreak) throws IOException;
+  /**
+   * Gets the currently available breaks.
+   * 
+   * @return the currently available breaks
+   */
+  List<Break> getBreaks();
 
   /**
-   * @return
+   * Removes breaks that were created by this instance.
    */
-  Break[] getBreaks();
+  void removeBreaks();
+
+  /**
+   * @param remoteBreakListener
+   */
+  void registerRemoteBreakListener(RemoteBreakListener remoteBreakListener);
+
+  /**
+   * Close all connections.
+   * @throws IOException 
+   */
+  void disconnect() throws IOException;
 
 }
