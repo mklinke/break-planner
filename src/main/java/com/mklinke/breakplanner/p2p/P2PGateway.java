@@ -31,13 +31,17 @@ import javax.jmdns.ServiceListener;
  */
 public class P2PGateway {
 
-  private static final String SERVICE_TYPE = "_http._tcp.local.";
-  private static final int SERVICE_PORT = 4001;
+  static final String SERVICE_TYPE = "_http._tcp.local.";
+  static final int SERVICE_PORT = 4001;
 
   private JmDNS jmDNS;
 
   public P2PGateway() throws IOException {
-    jmDNS = JmDNS.create();
+    this(JmDNS.create());
+  }  
+  
+  public P2PGateway(JmDNS jmDNS) throws IOException {
+    this.jmDNS = jmDNS;
   }
 
   public void addServiceListener(ServiceListener serviceListener) {

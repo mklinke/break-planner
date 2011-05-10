@@ -18,8 +18,11 @@ package com.mklinke.breakplanner.p2p;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -32,6 +35,7 @@ import javax.jmdns.ServiceInfo;
 import javax.jmdns.ServiceListener;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -73,10 +77,51 @@ public class P2PGatewayTest
       verify(jmDNS).registerService(any(ServiceInfo.class));
    }
 
+   @Test
+   public void getServices()
+      throws IOException
+   {
+      ServiceInfo serviceInfo = mock(ServiceInfo.class);
+      when(jmDNS.list(anyString())).thenReturn(
+         new ServiceInfo[] { serviceInfo });
+      List<ServiceInfo> services = gateway.getServices();
+      assertTrue(services.contains(serviceInfo));
+      verify(jmDNS).list(P2PGateway.SERVICE_TYPE);
+   }
+
+   @Test
+   public void resolve()
+   {
+      ServiceInfo serviceInfo = mock(ServiceInfo.class);
+      gateway.resolve(serviceInfo);
+      verify(jmDNS).getServiceInfo(eq(P2PGateway.SERVICE_TYPE), anyString());
+      verify(serviceInfo).getName();
+   }
+
+   @Test
+   public void unregisterService()
+      throws IOException
+   {
+      ServiceInfo serviceInfo = mock(ServiceInfo.class);
+      gateway.unregisterService(serviceInfo);
+      verify(jmDNS).unregisterService(serviceInfo);
+   }
+
+   @Test
+   public void disconnect()
+      throws IOException
+   {
+      gateway.disconnect();
+      verify(jmDNS).close();
+   }
+
+   //TODO add negative tests
+
    /*
-    * integration tests (real network is used)
+    * integration tests (real network is used -> tests are ignored by default)
     */
    @Test
+   @Ignore
    public void registerAndGetService()
       throws IOException
    {
@@ -101,6 +146,7 @@ public class P2PGatewayTest
    }
 
    @Test
+   @Ignore
    public void getServiceDescription()
       throws IOException
    {
