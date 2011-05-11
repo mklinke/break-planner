@@ -15,35 +15,40 @@
  */
 package com.mklinke.breakplanner.controller;
 
+import static org.mockito.Mockito.verify;
+
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mklinke.breakplanner.model.BreakRepository;
 import com.mklinke.breakplanner.view.MainView;
-
-import static org.mockito.Mockito.*;
 
 /**
  * @author Martin Klinke
  * 
  */
+@RunWith(MockitoJUnitRunner.class)
 public class MainControllerTest {
+
+  @Mock
+  MainView view;
+  @Mock
+  BreakRepository model;
 
   @Test(expected = IllegalArgumentException.class)
   public void NewMainControllerViewMustNotBeNull() {
-    BreakRepository model = mock(BreakRepository.class);
     new MainController(null, model);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void NewMainControllerModelMustNotBeNull() {
-    MainView view = mock(MainView.class);
     new MainController(view, null);
   }
 
   @Test
   public void RunShouldRegisterExitListener() {
-    MainView view = mock(MainView.class);
-    BreakRepository model = mock(BreakRepository.class);
     MainController controller = new MainController(view, model);
     controller.run();
     verify(view).registerExitListener(controller);

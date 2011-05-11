@@ -20,7 +20,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -37,15 +36,24 @@ import javax.jmdns.ServiceListener;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * @author Martin Klinke
  * 
  */
+@RunWith(MockitoJUnitRunner.class)
 public class P2PGatewayTest {
-
-  private JmDNS jmDNS;
   private P2PGateway gateway;
+
+  @Mock
+  JmDNS jmDNS;
+  @Mock
+  ServiceListener serviceListener;
+  @Mock
+  ServiceInfo serviceInfo;
 
   /*
    * mock tests
@@ -53,13 +61,11 @@ public class P2PGatewayTest {
 
   @Before
   public void setUp() throws IOException {
-    this.jmDNS = mock(JmDNS.class);
     this.gateway = new P2PGateway(jmDNS);
   }
 
   @Test
   public void addServiceListener() {
-    ServiceListener serviceListener = mock(ServiceListener.class);
     gateway.addServiceListener(serviceListener);
     verify(jmDNS).addServiceListener(P2PGateway.SERVICE_TYPE, serviceListener);
   }
@@ -73,7 +79,6 @@ public class P2PGatewayTest {
 
   @Test
   public void getServices() throws IOException {
-    ServiceInfo serviceInfo = mock(ServiceInfo.class);
     when(jmDNS.list(anyString())).thenReturn(new ServiceInfo[] { serviceInfo });
     List<ServiceInfo> services = gateway.getServices();
     assertTrue(services.contains(serviceInfo));
@@ -82,7 +87,6 @@ public class P2PGatewayTest {
 
   @Test
   public void resolve() {
-    ServiceInfo serviceInfo = mock(ServiceInfo.class);
     gateway.resolve(serviceInfo);
     verify(jmDNS).getServiceInfo(eq(P2PGateway.SERVICE_TYPE), anyString());
     verify(serviceInfo).getName();
@@ -90,7 +94,6 @@ public class P2PGatewayTest {
 
   @Test
   public void unregisterService() throws IOException {
-    ServiceInfo serviceInfo = mock(ServiceInfo.class);
     gateway.unregisterService(serviceInfo);
     verify(jmDNS).unregisterService(serviceInfo);
   }

@@ -8,8 +8,15 @@
 	<packaging>jar</packaging>
 
 	<name>break-planner</name>
-	<url>http://maven.apache.org</url>
+	<description>A peer-to-peer planner for your next lunch/coffee break.</description>
+	<url>http://github.com/mklinke/break-planner</url>
 
+	<inceptionYear>2011</inceptionYear>
+	<scm>
+		<connection>git://github.com/mklinke/break-planner.git</connection>
+		<developerConnection>git@github.com:mklinke/break-planner.git</developerConnection>
+		<url>https://github.com/mklinke/break-planner</url>
+	</scm>
 	<build>
 		<plugins>
 			<plugin>

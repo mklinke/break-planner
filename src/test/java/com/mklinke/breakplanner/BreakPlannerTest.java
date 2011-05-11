@@ -13,10 +13,12 @@
  */
 package com.mklinke.breakplanner;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mklinke.breakplanner.controller.MainController;
 import com.mklinke.breakplanner.model.BreakRepository;
@@ -27,19 +29,26 @@ import com.mklinke.breakplanner.view.MainView;
  * 
  * @author mklinke
  */
+@RunWith(MockitoJUnitRunner.class)
 public class BreakPlannerTest {
+  @Mock
+  MainController controller;
+  @Mock
+  MainView view;
+  @Mock
+  BreakRepository model;
+
   @Test
   public void runMustCallControllerRun() {
-    final MainController controller = mock(MainController.class);
     BreakPlanner breakPlanner = new BreakPlanner() {
       @Override
       protected MainView getView() {
-        return mock(MainView.class);
+        return view;
       };
 
       @Override
       protected BreakRepository getModel() throws java.io.IOException {
-        return mock(BreakRepository.class);
+        return model;
       };
 
       @Override

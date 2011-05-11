@@ -16,7 +16,6 @@ package com.mklinke.breakplanner.model;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyMap;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -29,21 +28,30 @@ import javax.jmdns.ServiceListener;
 import org.joda.time.LocalTime;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import com.mklinke.breakplanner.p2p.P2PGateway;
 
 /**
- * TODO: Description missing
+ * Unit tests for {@link BreakRepositoryP2P}.
  * 
  * @author mklinke
  */
+@RunWith(MockitoJUnitRunner.class)
 public class BreakRepositoryP2PTest {
   private BreakRepositoryP2P breakRepository;
-  private P2PGateway gateway;
+
+  @Mock
+  P2PGateway gateway;
+  @Mock
+  RemoteBreakListener listener;
+  @Mock
+  ServiceInfo serviceInfo;
 
   @Before
   public void setUp() throws IOException {
-    gateway = mock(P2PGateway.class);
     breakRepository = new BreakRepositoryP2P(gateway);
   }
 
@@ -54,7 +62,6 @@ public class BreakRepositoryP2PTest {
 
   @Test
   public void registerRemoteBreakListenerMustRegisterListenerOnGateway() {
-    RemoteBreakListener listener = mock(RemoteBreakListener.class);
     breakRepository.registerRemoteBreakListener(listener);
     verify(gateway).addServiceListener(any(ServiceListener.class));
   }
@@ -78,9 +85,9 @@ public class BreakRepositoryP2PTest {
   }
 
   @Test
+  @SuppressWarnings("unchecked")
   public void removeBreakMustUnregisterService() throws IOException {
     Break aBreak = new Break("Coffee Break", new LocalTime());
-    ServiceInfo serviceInfo = mock(ServiceInfo.class);
     when(serviceInfo.getName()).thenReturn(aBreak.getUniqueName());
     when(gateway.registerService(anyString(), anyMap()))
         .thenReturn(serviceInfo);
