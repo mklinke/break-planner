@@ -23,8 +23,8 @@ package com.mklinke.breakplanner.view;
 public interface ExitListener {
 
   /**
-   * @return <code>true</code> if the application should exit, <code>false</code>
-   *         otherwise
+   * @return <code>true</code> if the application should exit,
+   *         <code>false</code> otherwise
    */
   boolean confirmExit();
 

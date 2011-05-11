@@ -17,7 +17,7 @@ package com.mklinke.breakplanner.view;
 
 /**
  * @author Martin Klinke
- *
+ * 
  */
 public interface ExceptionHandler {
 

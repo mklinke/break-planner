@@ -99,9 +99,13 @@ public class MainWindow extends JFrame implements MainView {
         }
       });
     }
-    
-    /* (non-Javadoc)
-     * @see javax.swing.DefaultCellEditor#getTableCellEditorComponent(javax.swing.JTable, java.lang.Object, boolean, int, int)
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * javax.swing.DefaultCellEditor#getTableCellEditorComponent(javax.swing
+     * .JTable, java.lang.Object, boolean, int, int)
      */
     @Override
     public Component getTableCellEditorComponent(JTable table, Object value,
@@ -120,7 +124,7 @@ public class MainWindow extends JFrame implements MainView {
       delete = true;
       return super.stopCellEditing();
     }
-    
+
     public Object getCellEditorValue() {
       return delete;
     }
@@ -256,7 +260,8 @@ public class MainWindow extends JFrame implements MainView {
     });
   }
 
-  public void registerRemoveBreakListener(RemoveBreakListener removeBreakListener) {
+  public void registerRemoveBreakListener(
+      RemoveBreakListener removeBreakListener) {
     getBreakTableModel().registerRemoveBreakListener(removeBreakListener);
   }
 

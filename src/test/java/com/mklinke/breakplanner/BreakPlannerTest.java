@@ -24,38 +24,31 @@ import com.mklinke.breakplanner.view.MainView;
 
 /**
  * TODO: Description missing
+ * 
  * @author mklinke
  */
-public class BreakPlannerTest
-{
-   @Test
-   public void runMustCallControllerRun()
-   {
-      final MainController controller = mock(MainController.class);
-      BreakPlanner breakPlanner = new BreakPlanner()
-      {
-         @Override
-         protected MainView getView()
-         {
-            return mock(MainView.class);
-         };
-
-         @Override
-         protected BreakRepository getModel()
-            throws java.io.IOException
-         {
-            return mock(BreakRepository.class);
-         };
-
-         @Override
-         protected MainController getController(
-            MainView view,
-            BreakRepository model)
-         {
-            return controller;
-         };
+public class BreakPlannerTest {
+  @Test
+  public void runMustCallControllerRun() {
+    final MainController controller = mock(MainController.class);
+    BreakPlanner breakPlanner = new BreakPlanner() {
+      @Override
+      protected MainView getView() {
+        return mock(MainView.class);
       };
-      breakPlanner.run();
-      verify(controller).run();
-   }
+
+      @Override
+      protected BreakRepository getModel() throws java.io.IOException {
+        return mock(BreakRepository.class);
+      };
+
+      @Override
+      protected MainController getController(MainView view,
+          BreakRepository model) {
+        return controller;
+      };
+    };
+    breakPlanner.run();
+    verify(controller).run();
+  }
 }

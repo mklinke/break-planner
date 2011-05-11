@@ -33,7 +33,9 @@ public interface BreakRepository {
    *           if an error occurs while adding the break
    */
   void addBreak(Break newBreak) throws IOException;
+
   void removeBreak(Break newBreak) throws IOException;
+
   /**
    * Gets the currently available breaks.
    * 
@@ -53,7 +55,8 @@ public interface BreakRepository {
 
   /**
    * Close all connections.
-   * @throws IOException 
+   * 
+   * @throws IOException
    */
   void disconnect() throws IOException;
 

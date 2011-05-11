@@ -17,7 +17,7 @@ package com.mklinke.breakplanner.model;
 
 /**
  * @author Martin Klinke
- *
+ * 
  */
 public interface BreakListener {
 

@@ -28,44 +28,34 @@ import com.mklinke.breakplanner.view.MainView;
  * 
  * @author Martin Klinke
  */
-public class BreakPlanner
-{
-   public static void main(String[] args)
-   {
-      new BreakPlanner().run();
-   }
+public class BreakPlanner {
+  public static void main(String[] args) {
+    new BreakPlanner().run();
+  }
 
-   /**
-    * Executes the application.
-    */
-   public void run()
-   {
-      MainView view = getView();
-      try
-      {
-         BreakRepository model = getModel();
-         MainController controller = getController(view, model);
-         controller.run();
-      }
-      catch (IOException e)
-      {
-         view.showError("Error initialization: " + e.getMessage());
-      }
-   }
+  /**
+   * Executes the application.
+   */
+  public void run() {
+    MainView view = getView();
+    try {
+      BreakRepository model = getModel();
+      MainController controller = getController(view, model);
+      controller.run();
+    } catch (IOException e) {
+      view.showError("Error initialization: " + e.getMessage());
+    }
+  }
 
-   protected MainController getController(MainView view, BreakRepository model)
-   {
-      return new MainController(view, model);
-   }
+  protected MainController getController(MainView view, BreakRepository model) {
+    return new MainController(view, model);
+  }
 
-   protected BreakRepository getModel()
-      throws IOException
-   {
-      return new BreakRepositoryP2P();
-   }
+  protected BreakRepository getModel() throws IOException {
+    return new BreakRepositoryP2P();
+  }
 
-   protected MainView getView()
-   {
-      return new MainWindow();
-   }
+  protected MainView getView() {
+    return new MainWindow();
+  }
 }

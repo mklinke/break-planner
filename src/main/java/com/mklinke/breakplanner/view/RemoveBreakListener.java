@@ -19,7 +19,7 @@ import com.mklinke.breakplanner.model.Break;
 
 /**
  * @author Martin Klinke
- *
+ * 
  */
 public interface RemoveBreakListener {
 

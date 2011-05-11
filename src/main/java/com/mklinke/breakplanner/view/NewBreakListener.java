@@ -26,9 +26,11 @@ public interface NewBreakListener {
 
   /**
    * 
-   * @param description the description for the break
-   * @param time the time for the break
+   * @param description
+   *          the description for the break
+   * @param time
+   *          the time for the break
    */
   void newBreak(String description, Date time);
-  
+
 }

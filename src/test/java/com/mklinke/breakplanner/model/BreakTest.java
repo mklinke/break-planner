@@ -29,157 +29,136 @@ import org.junit.Test;
  * @author Martin Klinke
  * 
  */
-public class BreakTest
-{
+public class BreakTest {
 
-   /*
-    * static tests 
-    */
+  /*
+   * static tests
+   */
 
-   @Test
-   public void validBreakName()
-   {
-      assertTrue(Break.isBreakName(Break.UNIQUE_NAME_PREFIX + UUID.randomUUID()));
-   }
+  @Test
+  public void validBreakName() {
+    assertTrue(Break.isBreakName(Break.UNIQUE_NAME_PREFIX + UUID.randomUUID()));
+  }
 
-   @Test
-   public void nullBreakName()
-   {
-      assertFalse(Break.isBreakName(null));
-   }
+  @Test
+  public void nullBreakName() {
+    assertFalse(Break.isBreakName(null));
+  }
 
-   @Test
-   public void completelyInValidBreakName()
-   {
-      assertFalse(Break.isBreakName("hrxlgrmph"));
-   }
+  @Test
+  public void completelyInValidBreakName() {
+    assertFalse(Break.isBreakName("hrxlgrmph"));
+  }
 
-   @Test
-   public void inValidBreakNameUUID()
-   {
-      assertFalse(Break.isBreakName(Break.UNIQUE_NAME_PREFIX + "hrxlgrmph"));
-   }
+  @Test
+  public void inValidBreakNameUUID() {
+    assertFalse(Break.isBreakName(Break.UNIQUE_NAME_PREFIX + "hrxlgrmph"));
+  }
 
-   @Test
-   public void inValidBreakNamePrefix()
-   {
-      assertFalse(Break.isBreakName("hrxlgrmph-" + UUID.randomUUID()));
-   }
+  @Test
+  public void inValidBreakNamePrefix() {
+    assertFalse(Break.isBreakName("hrxlgrmph-" + UUID.randomUUID()));
+  }
 
-   /*
-    * instance tests
-    */
+  /*
+   * instance tests
+   */
 
-   @Test
-   public void newBreakMustHaveUuid()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      assertNotNull(aBreak.getUuid());
-   }
+  @Test
+  public void newBreakMustHaveUuid() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    assertNotNull(aBreak.getUuid());
+  }
 
-   @Test
-   public void newBreakMustHaveUniqueName()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      assertNotNull(aBreak.getUniqueName());
-   }
+  @Test
+  public void newBreakMustHaveUniqueName() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    assertNotNull(aBreak.getUniqueName());
+  }
 
-   @Test
-   public void newBreakWithDescription()
-   {
-      String description = "Coffee";
-      Break aBreak = new Break(description, new LocalTime());
-      assertEquals(description, aBreak.getDescription());
-   }
+  @Test
+  public void newBreakWithDescription() {
+    String description = "Coffee";
+    Break aBreak = new Break(description, new LocalTime());
+    assertEquals(description, aBreak.getDescription());
+  }
 
-   @Test(expected = IllegalArgumentException.class)
-   public void newBreakDescriptionMustNotBeNull()
-   {
-      new Break(null, new LocalTime());
-   }
+  @Test(expected = IllegalArgumentException.class)
+  public void newBreakDescriptionMustNotBeNull() {
+    new Break(null, new LocalTime());
+  }
 
-   @Test(expected = IllegalArgumentException.class)
-   public void newBreakDescriptionMustNotBeEmpty()
-   {
-      new Break("", new LocalTime());
-   }
+  @Test(expected = IllegalArgumentException.class)
+  public void newBreakDescriptionMustNotBeEmpty() {
+    new Break("", new LocalTime());
+  }
 
-   @Test(expected = IllegalArgumentException.class)
-   public void newBreakDescriptionMustNotBeBlank()
-   {
-      new Break(" ", new LocalTime());
-   }
+  @Test(expected = IllegalArgumentException.class)
+  public void newBreakDescriptionMustNotBeBlank() {
+    new Break(" ", new LocalTime());
+  }
 
-   @Test
-   public void newBreakMustNotBeEditable()
-   {
-      assertFalse(new Break("Coffee", new LocalTime()).isEditable());
-   }
+  @Test
+  public void newBreakMustNotBeEditable() {
+    assertFalse(new Break("Coffee", new LocalTime()).isEditable());
+  }
 
-   @Test(expected = IllegalStateException.class)
-   public void cannotChangeReadonlyBreak()
-   {
-      new Break("Coffee", new LocalTime()).setDescription("new description");
-   }
+  @Test(expected = IllegalStateException.class)
+  public void cannotChangeReadonlyBreak() {
+    new Break("Coffee", new LocalTime()).setDescription("new description");
+  }
 
-   @Test
-   public void breakMustAllowChangeOfUuid()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      aBreak.setEditable(true);
-      aBreak.setDescription("new description");
-   }
+  @Test
+  public void breakMustAllowChangeOfUuid() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    aBreak.setEditable(true);
+    aBreak.setDescription("new description");
+  }
 
-   @Test
-   public void editableBreakMustAllowChangeOfDescription()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      aBreak.setEditable(true);
-      aBreak.setDescription("new description");
-   }
+  @Test
+  public void editableBreakMustAllowChangeOfDescription() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    aBreak.setEditable(true);
+    aBreak.setDescription("new description");
+  }
 
-   @Test
-   public void breakSetUuid()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      UUID uuid = UUID.randomUUID();
-      aBreak.setUuid(uuid);
-      assertEquals(uuid, aBreak.getUuid());
-   }
+  @Test
+  public void breakSetUuid() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    UUID uuid = UUID.randomUUID();
+    aBreak.setUuid(uuid);
+    assertEquals(uuid, aBreak.getUuid());
+  }
 
-   @Test(expected = IllegalArgumentException.class)
-   public void breakSetNullUuid()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      aBreak.setUuid(null);
-   }
+  @Test(expected = IllegalArgumentException.class)
+  public void breakSetNullUuid() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    aBreak.setUuid(null);
+  }
 
-   @Test
-   public void breakSetTime()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      aBreak.setEditable(true);
-      LocalTime anHourFromNow = new LocalTime(
-         System.currentTimeMillis() + 60 * 60 * 1000);
-      aBreak.setTime(anHourFromNow);
-      assertEquals(anHourFromNow, aBreak.getTime());
-   }
+  @Test
+  public void breakSetTime() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    aBreak.setEditable(true);
+    LocalTime anHourFromNow = new LocalTime(
+        System.currentTimeMillis() + 60 * 60 * 1000);
+    aBreak.setTime(anHourFromNow);
+    assertEquals(anHourFromNow, aBreak.getTime());
+  }
 
-   @Test(expected = IllegalArgumentException.class)
-   public void breakTimeMustNotBeNull()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      aBreak.setEditable(true);
-      aBreak.setTime(null);
-   }
+  @Test(expected = IllegalArgumentException.class)
+  public void breakTimeMustNotBeNull() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    aBreak.setEditable(true);
+    aBreak.setTime(null);
+  }
 
-   @Test(expected = IllegalArgumentException.class)
-   public void breakTimeMustNotBeInThePast()
-   {
-      Break aBreak = new Break("Coffee", new LocalTime());
-      aBreak.setEditable(true);
-      LocalTime anHourAgo = new LocalTime(
-         System.currentTimeMillis() - 60 * 60 * 1000);
-      aBreak.setTime(anHourAgo);
-   }
+  @Test(expected = IllegalArgumentException.class)
+  public void breakTimeMustNotBeInThePast() {
+    Break aBreak = new Break("Coffee", new LocalTime());
+    aBreak.setEditable(true);
+    LocalTime anHourAgo = new LocalTime(
+        System.currentTimeMillis() - 60 * 60 * 1000);
+    aBreak.setTime(anHourAgo);
+  }
 }

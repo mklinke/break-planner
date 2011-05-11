@@ -38,8 +38,8 @@ public class P2PGateway {
 
   public P2PGateway() throws IOException {
     this(JmDNS.create());
-  }  
-  
+  }
+
   public P2PGateway(JmDNS jmDNS) throws IOException {
     this.jmDNS = jmDNS;
   }
@@ -59,10 +59,9 @@ public class P2PGateway {
   public List<ServiceInfo> getServices() {
     return Arrays.asList(jmDNS.list(SERVICE_TYPE));
   }
-  
-  public ServiceInfo resolve(ServiceInfo serviceInfo){
-    return jmDNS.getServiceInfo(SERVICE_TYPE,
-        serviceInfo.getName());
+
+  public ServiceInfo resolve(ServiceInfo serviceInfo) {
+    return jmDNS.getServiceInfo(SERVICE_TYPE, serviceInfo.getName());
   }
 
   /**
@@ -73,7 +72,7 @@ public class P2PGateway {
   }
 
   /**
-   * @throws IOException 
+   * @throws IOException
    * 
    */
   public void disconnect() throws IOException {
