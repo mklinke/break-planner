@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +19,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import org.joda.time.LocalTime;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 
 /**
  * Represents a break.
@@ -56,7 +57,8 @@ public class Break {
 
   public static Break fromMap(String name, Map<String, String> properties) {
     Long time = Long.parseLong(properties.get(TIME));
-    Break newBreak = new Break(properties.get(DESCRIPTION), new LocalTime(time));
+    Break newBreak = new Break(properties.get(DESCRIPTION), new DateTime(
+        time.longValue()).toLocalDateTime());
     newBreak.setUuid(Break.getUuidFromName(name));
     return newBreak;
   }
@@ -65,7 +67,7 @@ public class Break {
   private boolean editable;
   private String description;
 
-  private LocalTime time;
+  private LocalDateTime time;
 
   /**
    * Creates a new break with the given description.
@@ -76,7 +78,7 @@ public class Break {
    *           if the supplied description is null, empty or consists only of
    *           blanks
    */
-  public Break(String description, LocalTime time) {
+  public Break(String description, LocalDateTime time) {
     if (description == null || "".equals(description.trim())) {
       throw new IllegalArgumentException("Invalid description: " + description);
     }
@@ -190,8 +192,9 @@ public class Break {
    * @throws IllegalArgumentException
    *           if the time is null or in the past
    */
-  public void setTime(LocalTime time) {
-    if (time == null || time.isBefore(new LocalTime().minusMinutes(1))) {
+  public void setTime(LocalDateTime time) {
+    LocalDateTime aMinuteAgo = new LocalDateTime().minusMinutes(1);
+    if (time == null || time.isBefore(aMinuteAgo)) {
       throw new IllegalArgumentException("Invalid time: " + time);
     }
     this.time = time;
@@ -200,7 +203,7 @@ public class Break {
   /**
    * @return the time for the break
    */
-  public LocalTime getTime() {
+  public LocalDateTime getTime() {
     return time;
   }
 
@@ -208,7 +211,7 @@ public class Break {
     Map<String, String> properties = new HashMap<String, String>();
     properties.put(DESCRIPTION, this.getDescription());
     properties.put(TIME,
-        new Long(this.getTime().toDateTimeToday().getMillis()).toString());
+        new Long(this.getTime().toDateTime().getMillis()).toString());
     return properties;
   }
 }

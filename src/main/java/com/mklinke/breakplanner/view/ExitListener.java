@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");

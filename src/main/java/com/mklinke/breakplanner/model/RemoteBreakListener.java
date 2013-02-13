@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -15,6 +15,8 @@
  */
 package com.mklinke.breakplanner.model;
 
+import java.util.UUID;
+
 /**
  * @author Martin Klinke
  * 
@@ -27,8 +29,8 @@ public interface RemoteBreakListener {
   void remoteBreakAdded(Break newBreak);
 
   /**
-   * @param removedBreak
+   * @param removedBreakUUID
    */
-  void remoteBreakRemoved(Break removedBreak);
+  void remoteBreakRemoved(UUID removedBreakUUID);
 
 }

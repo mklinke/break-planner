@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -68,9 +68,9 @@ public class BreakRepositoryP2P implements BreakRepository, BreakListener {
       }
 
       public void serviceRemoved(ServiceEvent event) {
-        Break newBreak = convert(event.getInfo());
-        if (newBreak != null) {
-          remoteBreakListener.remoteBreakRemoved(newBreak);
+        String eventInfoName = event.getInfo().getName();
+        if(Break.isBreakName(eventInfoName)){
+          remoteBreakListener.remoteBreakRemoved(Break.getUuidFromName(eventInfoName));
         }
       }
 

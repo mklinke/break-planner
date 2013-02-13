@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -18,8 +18,9 @@ package com.mklinke.breakplanner.controller;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
-import org.joda.time.LocalTime;
+import org.joda.time.LocalDateTime;
 
 import com.mklinke.breakplanner.model.Break;
 import com.mklinke.breakplanner.model.BreakRepository;
@@ -98,7 +99,7 @@ public class MainController implements NewBreakListener, RemoveBreakListener,
    */
   public void newBreak(String description, Date time) {
     try {
-      Break newBreak = new Break(description, new LocalTime(time.getTime()));
+      Break newBreak = new Break(description, new LocalDateTime(time.getTime()));
       newBreak.setEditable(true);
       model.addBreak(newBreak);
       view.addBreak(newBreak);
@@ -143,8 +144,8 @@ public class MainController implements NewBreakListener, RemoveBreakListener,
    * com.mklinke.breakplanner.model.RemoteBreakListener#remoteBreakRemoved(com
    * .mklinke.breakplanner.model.Break)
    */
-  public void remoteBreakRemoved(Break removedBreak) {
-    view.removeBreak(removedBreak);
+  public void remoteBreakRemoved(UUID removedBreakUUID) {
+    Break removedBreak = view.removeBreak(removedBreakUUID);
     view.setStatus("Break was removed: " + removedBreak.getDescription());
   }
 

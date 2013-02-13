@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,7 +16,9 @@
 package com.mklinke.breakplanner.ui;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -64,15 +66,26 @@ public class BreakTableModel extends DefaultTableModel {
   }
 
   /**
-   * @param removedBreak
+   * @param removedBreakUUID
+   * @return 
    */
-  public void removeBreak(Break removedBreak) {
-    for (int i = 0; i < getRowCount(); i++) {
-      if (removedBreak.getUniqueName().equals(getValueAt(i, 0))) {
-        removeRow(i);
-        breaks.remove(i);
+  public Break removeBreak(UUID removedBreakUUID) {
+    Break removedBreak = null;
+    for (Break aBreak : breaks) {
+      if (aBreak.getUuid().equals(removedBreakUUID)) {
+        removedBreak = aBreak;
+        break;
       }
     }
+    if (removedBreak != null) {
+      for (int i = 0; i < getRowCount(); i++) {
+        if (removedBreak.getUniqueName().equals(getValueAt(i, 0))) {
+          removeRow(i);
+          breaks.remove(i);
+        }
+      }
+    }
+    return removedBreak;
   }
 
   /*

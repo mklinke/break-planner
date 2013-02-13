@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,6 +14,8 @@
  *  limitations under the License.
  */
 package com.mklinke.breakplanner.view;
+
+import java.util.UUID;
 
 import com.mklinke.breakplanner.model.Break;
 
@@ -65,8 +67,9 @@ public interface MainView {
   void showError(String string);
 
   /**
-   * @param removedBreak
+   * @param removedBreakUUID
+   * @return the removed break instance
    */
-  void removeBreak(Break removedBreak);
+  Break removeBreak(UUID removedBreakUUID);
 
 }

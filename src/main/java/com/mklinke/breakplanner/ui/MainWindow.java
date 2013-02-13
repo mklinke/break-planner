@@ -1,4 +1,4 @@
-/***
+/**
  *  Copyright 2011 Martin Klinke, http://www.martinklinke.com.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
@@ -27,6 +27,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.UUID;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
@@ -297,15 +298,8 @@ public class MainWindow extends JFrame implements MainView {
     getBreakTableModel().addBreak(aBreak);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see
-   * com.mklinke.breakplanner.view.MainView#removeBreak(com.mklinke.breakplanner
-   * .model.Break)
-   */
-  public void removeBreak(Break removedBreak) {
-    getBreakTableModel().removeBreak(removedBreak);
+  public Break removeBreak(UUID removedBreakUUID) {
+    return getBreakTableModel().removeBreak(removedBreakUUID);
   }
 
   /*
