@@ -1,3 +1,10 @@
+Historic pet project with the assumption to run in a local (corporate) network without a server.
+
+Today, a cloud-hosted web project would be the way to go.
+
+Original readme below:
+========================================================
+
 A peer-to-peer planner for your next lunch/coffee break.
 
 The application is based on the following technologies:
